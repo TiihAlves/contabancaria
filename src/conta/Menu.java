@@ -17,9 +17,9 @@ public class Menu {
 
 		Scanner scanner = new Scanner(System.in);
 
-		int opcao, numero, agencia, tipo, aniversario;
+		int opcao, numero, agencia, tipo, aniversario, numeroDestino;
 		String titular;
-		float saldo, limite;
+		float saldo, limite, valor;
 
 		System.out.println("\nCriar Contas\n");
 
@@ -173,28 +173,60 @@ public class Menu {
 					break;
 				case 5:
 					System.out.println(Cores.TEXT_WHITE_BOLD + "Apagar a Conta\n\n");
-					
+
 					System.out.println("Digite o número da Conta: ");
 					numero = scanner.nextInt();
-					
+
 					contas.deletar(numero);
-					
+
 					keyPress();
 					break;
 				case 6:
 					System.out.println(Cores.TEXT_WHITE_BOLD + "Saque\n\n");
-					keyPress();
 
+					System.out.println("Digite o Número da Conta: ");
+					numero = scanner.nextInt();
+
+					do {
+						System.out.println("Digite o Valor do Saque (R$): ");
+						valor = scanner.nextFloat();
+					} while (valor <= 0);
+
+					contas.sacar(numero, valor);
+
+					keyPress();
 					break;
 				case 7:
 					System.out.println(Cores.TEXT_WHITE_BOLD + "Depósito\n\n");
-					keyPress();
 
+					System.out.println("Digite o Número da Conta: ");
+					numero = scanner.nextInt();
+
+					do {
+						System.out.println("Digite o valor do Depósito (R$): ");
+						valor = scanner.nextFloat();
+					} while (valor <= 0);
+
+					contas.depositar(numero, valor);
+
+					keyPress();
 					break;
 				case 8:
 					System.out.println(Cores.TEXT_WHITE_BOLD + "Transferência entre Contas\n\n");
-					keyPress();
 
+					System.out.println("Digite o Número da Conta de Origem: ");
+					numero = scanner.nextInt();
+					System.out.println("Digite o Número da Conta de Destino: ");
+					numeroDestino = scanner.nextInt();
+
+					do {
+						System.out.println("Digite o Valor da Transferência (R$): ");
+						valor = scanner.nextFloat();
+					} while (valor <= 0);
+					
+					contas.transferir(numero, numeroDestino, valor);
+
+					keyPress();
 					break;
 				default:
 					System.out.println(Cores.TEXT_RED_BOLD + "\nOpção Inválida!\n" + Cores.TEXT_RESET);
